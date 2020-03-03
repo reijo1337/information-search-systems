@@ -64,9 +64,9 @@ func runTest(tc testCase) {
 	copy(quick, tc.array)
 
 	s, c := bubbleSort(bubble)
-	fmt.Printf("bubble\nswap: %d\tcomprasions: %d\n", s, c)
+	fmt.Printf("bubble\n\t\tswap: %d\tcomprasions: %d\n", s, c)
 	s, c = insertionSort(insertion)
-	fmt.Printf("insertion\nswap: %d\tcomprasions: %d\n", s, c)
+	fmt.Printf("insertion\n\t\tswap: %d\tcomprasions: %d\n", s, c)
 	s, c = quickSort(quick)
-	fmt.Printf("quick\nswap: %d\tcomprasions: %d\n", s, c)
+	fmt.Printf("quick\n\t\tswap: %d\tcomprasions: %d\n", s, c)
 }
