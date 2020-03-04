@@ -34,43 +34,44 @@ func insertionSort(a []int) (int, int) {
 }
 
 type tree struct {
-	key   int
-	left  *tree
-	right *tree
-}
-
-func (t *tree) insert(key int) (comp int) {
-	if t == nil {
-		t = &tree{key: key}
-		return
-	}
-
-	if key < t.key {
-		comp = 1 + t.left.insert(key)
-	} else {
-		comp = 1 + t.right.insert(key)
-	}
-	return
-}
-
-func (t *tree) walk(a *[]int) {
-	if t == nil {
-		return
-	}
-	t.left.walk(a)
-	*a = append(*a, t.key)
-	t.right.walk(a)
+	key         int
+	left, right *tree
 }
 
 func treeSort(a []int) (int, int) {
-	swap, comp := len(a), 0
-	var t *tree
-	for _, key := range a {
-		comp += t.insert(key)
+	var root *tree
+	var comp int
+	for _, v := range a {
+		var c int
+		root, c = add(root, v)
+		comp += c
 	}
-	a = a[:0]
-	t.walk(&a)
-	return swap, comp
+	appendValues(a[:0], root)
+	return len(a), comp
+}
+
+func appendValues(a []int, root *tree) []int {
+	if root != nil {
+		a = appendValues(a, root.left)
+		a = append(a, root.key)
+		a = appendValues(a, root.right)
+	}
+	return a
+}
+
+func add(t *tree, v int) (*tree, int) {
+	if t == nil {
+		t = new(tree)
+		t.key = v
+		return t, 0
+	}
+	var a int
+	if t.key > v {
+		t.left, a = add(t.left, v)
+	} else {
+		t.right, a = add(t.right, v)
+	}
+	return t, a + 1
 }
 
 func quickSort(a []int) (int, int) {
