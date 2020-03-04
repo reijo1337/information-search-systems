@@ -39,17 +39,18 @@ type tree struct {
 	right *tree
 }
 
-func (t *tree) insert(key int) {
+func (t *tree) insert(key int) (comp int) {
 	if t == nil {
 		t = &tree{key: key}
 		return
 	}
 
 	if key < t.key {
-		t.left.insert(key)
+		comp = 1 + t.left.insert(key)
 	} else {
-		t.right.insert(key)
+		comp = 1 + t.right.insert(key)
 	}
+	return
 }
 
 func (t *tree) walk(a *[]int) {
@@ -61,13 +62,15 @@ func (t *tree) walk(a *[]int) {
 	t.right.walk(a)
 }
 
-func treeSort(a []int) {
+func treeSort(a []int) (int, int) {
+	swap, comp := len(a), 0
 	var t *tree
 	for _, key := range a {
-		t.insert(key)
+		comp += t.insert(key)
 	}
 	a = a[:0]
 	t.walk(&a)
+	return swap, comp
 }
 
 func quickSort(a []int) (int, int) {
@@ -86,8 +89,8 @@ func recursiveSort(arr []int, start, end int) (swap int, comp int) {
 	//   and move them to the beginning of the array
 	//   keeping splitIndex denoting less-value array size
 	for i := start; i < end; i++ {
+		comp++
 		if arr[i] < pivot {
-			comp++
 			if splitIndex != i {
 				swap++
 				arr[splitIndex], arr[i] = arr[i], arr[splitIndex]
@@ -99,6 +102,9 @@ func recursiveSort(arr []int, start, end int) (swap int, comp int) {
 
 	arr[end] = arr[splitIndex]
 	arr[splitIndex] = pivot
+
+	swap++
+	swap++
 
 	s1, c1 := recursiveSort(arr, start, splitIndex-1)
 	s2, c2 := recursiveSort(arr, splitIndex+1, end)

@@ -67,6 +67,8 @@ func runTest(tc testCase) {
 	fmt.Printf("bubble\n\t\tswap: %d\tcomprasions: %d\n", s, c)
 	s, c = insertionSort(insertion)
 	fmt.Printf("insertion\n\t\tswap: %d\tcomprasions: %d\n", s, c)
+	s, c = treeSort(tree)
+	fmt.Printf("tree\n\t\tswap: %d\tcomprasions: %d\n", s, c)
 	s, c = quickSort(quick)
 	fmt.Printf("quick\n\t\tswap: %d\tcomprasions: %d\n", s, c)
 }
