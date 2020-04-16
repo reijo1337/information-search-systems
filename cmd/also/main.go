@@ -3,7 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	t, p := "000010001010001", "0001"
+	t, p := "ababacaababaca", "ababaca"
 	fmt.Println(nativeStringMatcher(t, p))
 	fmt.Println(rabinKarpMathcer(t, p))
+	fmt.Println(finiteAutomationMatcher(t, p))
 }
